@@ -17,6 +17,7 @@ public class InGameUI : MonoBehaviour
     bool once;
     bool once1;
     int points;
+    public PlayerController playerScript;
 
     
     // Start is called before the first frame update
@@ -69,7 +70,16 @@ public class InGameUI : MonoBehaviour
             stableUI.color = Color.green;
             if (!once1)
             {
-                points++;
+               
+                if (playerScript.isInCenter) 
+                {
+                    points += 10;
+                }
+                else
+                {
+                    points++;
+                }
+               
                 pointUI.text = points + " points";
                 once1 = true;
             }
@@ -83,4 +93,6 @@ public class InGameUI : MonoBehaviour
         stableTime++;
         StartCoroutine(Timer());
     }
+
+
 }

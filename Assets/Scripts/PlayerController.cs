@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody m_Rigidbody;
     public float m_Speed = 5f;
+    public bool isInCenter;
 
     void Start()
     {
@@ -21,5 +22,22 @@ public class PlayerController : MonoBehaviour
         //Apply the movement vector to the current position, which is
         //multiplied by deltaTime and speed for a smooth MovePosition
         m_Rigidbody.MovePosition(transform.position + m_Input * Time.deltaTime * m_Speed);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Center") 
+        {
+            isInCenter = true;
+            Debug.Log("in center");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Center")
+        {
+            isInCenter = false;
+        }
     }
 }
