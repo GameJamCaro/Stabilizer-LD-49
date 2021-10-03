@@ -13,6 +13,7 @@ public class InGameUI : MonoBehaviour
     public TextMeshProUGUI tiltUI;
     public TextMeshProUGUI stableUI;
     public TextMeshProUGUI pointUI;
+    public TextMeshProUGUI winPoints;
     public bool stable;
     bool once;
     bool once1;
@@ -29,20 +30,21 @@ public class InGameUI : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        tilt = unstablePlane.rotation.z;
+        tilt = unstablePlane.rotation.z * 100;
+        
         tiltUI.text = tilt.ToString("n2");
 
-        if (tilt < 0.009f && tilt > -0.009f)
+        if (tilt < 1f && tilt > -1f)
         {
             stable = true;
-            stableUI.text = "stable";
+            stableUI.text = "balanced";
         }
         else
         {
             stable = false;
             once = false;
             once1 = false;
-            stableUI.text = "unstable";
+            stableUI.text = "unbalanced";
             stableTime = 0;
            
            
@@ -57,15 +59,9 @@ public class InGameUI : MonoBehaviour
         {
             stableUI.color = Color.black;
         }
-        if (stableTime == 1) 
-        {
-            stableUI.color = Color.red;
-        }
-        if (stableTime == 2)
-        {
-            stableUI.color = Color.yellow;
-        }
-        if (stableTime == 3)
+       
+       
+        if (stableTime == 1)
         {
             stableUI.color = Color.green;
             if (!once1)
@@ -81,6 +77,7 @@ public class InGameUI : MonoBehaviour
                 }
                
                 pointUI.text = points + " points";
+                winPoints.text = points + " points";
                 once1 = true;
             }
                
